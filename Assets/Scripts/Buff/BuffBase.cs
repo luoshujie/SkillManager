@@ -1,3 +1,4 @@
+using Buff.Enum;
 using EventSystem;
 using EventSystem.Enum;
 using Skill;
@@ -9,6 +10,10 @@ namespace Buff
     /// </summary>
     public class BuffBase
     {
+        /// <summary>
+        /// buff类型
+        /// </summary>
+        public BuffTypeEnum BuffTypeEnum;
         /// <summary>
         /// Buff类型Id
         /// </summary>
@@ -47,9 +52,47 @@ namespace Buff
         /// </summary>
         public object Context;
 
-        public void BuffAwake()
+        /// <summary>
+        /// 触发间隔时间
+        /// </summary>
+        public float StartIntervalThink;
+       
+        
+        /// <summary>
+        /// buff开始生效（加入到buff容器后）
+        /// </summary>
+        public void OnBuffStart()
         {
-            SkillEventSystemManager.instance.ExecuteEvent(SkillSystemEventEnum.OnBuffAwake,null);
+        }
+        
+        /// <summary>
+        /// 当Buff添加时存在相同类型且Caster相等的时候，Buff执行刷新流程（更新Buff层数，等级，持续时间等数据）
+        /// </summary>
+        public void OnBuffRefresh()
+        {
+        
+        }
+        /// <summary>
+        /// 当Buff销毁前（还未从Buff容器中移除
+        /// </summary>
+        public void OnBuffRemove()
+        {
+            
+        }
+        /// <summary>
+        /// 当Buff销毁后（已从Buff容器中移除）
+        /// </summary>
+        public void OnBuffDestroy()
+        {
+            
+        }
+
+        /// <summary>
+        /// Buff创建定时器，以触发间隔持续效果
+        /// </summary>
+        public void OnIntervalThink()
+        {
+            
         }
     }
 }
