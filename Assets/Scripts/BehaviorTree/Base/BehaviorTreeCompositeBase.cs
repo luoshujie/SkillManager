@@ -3,5 +3,8 @@
 /// </summary>
 public class BehaviorTreeCompositeBase : BehaviorTreeParentBase
 {
-    public TaskType TaskType = TaskType.Composite;
+    public BehaviorTreeCompositeBase()
+    {
+        TaskType = TaskType.Composite;
+    }
 }

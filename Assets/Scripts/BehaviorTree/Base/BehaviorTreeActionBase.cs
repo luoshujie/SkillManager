@@ -3,6 +3,9 @@
 /// </summary>
 public class BehaviorTreeActionBase : BehaviorTreeTaskBase
 {
-    public TaskType TaskType = TaskType.Action;
-    public string name = "IAction";
+    public BehaviorTreeActionBase()
+    {
+        TaskType = TaskType.Action;
+        name = "IAction";
+    }
 }

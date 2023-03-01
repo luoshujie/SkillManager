@@ -14,7 +14,7 @@ public class BehaviorTreeSelector : BehaviorTreeCompositeBase
 
     public override TaskStatus OnUpdate()
     {
-        if (HasChildren())
+        if (!HasChildren())
         {
             Debug.LogWarning(name + "父节点类型没有子节点！！");
             return TaskStatus.Failure;

@@ -25,12 +25,15 @@ public class BehaviorTreeWait : BehaviorTreeActionBase
         curReturnStatus = TaskStatus.Inactive;
         if (waitTime <= 0)
         {
+            curTime = 0;
             curReturnStatus = TaskStatus.Success;
             return TaskStatus.Success;
         }
         CountBackwards();
+        Debug.Log(curTime + " " + waitTime);
         if (curTime >= waitTime)
         {
+            curTime = 0;
             curReturnStatus = TaskStatus.Success;
             return TaskStatus.Success;
         }

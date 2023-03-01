@@ -148,6 +148,13 @@ public class BehaviorTreeTaskRoot
 
     public TaskStatus OnUpdate()
     {
+        BehaviorTreeTaskRoot taskRoot = BehaviorTreeManager.instance.GetCurTreeRoot();
+        object b = taskRoot.GetGlobalParam("OnPause");
+        bool isB = (bool) b;
+        if (isB)
+        {
+            return TaskStatus.Running;
+        }
         if (startTask != null)
         {
             return startTask.OnUpdate();

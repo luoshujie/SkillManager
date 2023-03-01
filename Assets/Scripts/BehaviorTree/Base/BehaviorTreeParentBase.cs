@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class BehaviorTreeParentBase : BehaviorTreeTaskBase
 {
-    public int curChilIndex = 0;
+    public int curChilIndex = -1;
     public BehaviorTreeTaskBase curRunTask;
     public List<BehaviorTreeTaskBase> childTasks = new List<BehaviorTreeTaskBase>();
     /// <summary>
@@ -19,7 +19,7 @@ public class BehaviorTreeParentBase : BehaviorTreeTaskBase
     public void ResetChildren()
     {
         curRunTask = null;
-        curChilIndex = 0;
+        curChilIndex = -1;
     }
 
     public int GetCurChildIndex()
@@ -60,7 +60,7 @@ public class BehaviorTreeParentBase : BehaviorTreeTaskBase
     }
     public void ClearChildTasks()
     {
-        curChilIndex = 0;
+        curChilIndex = -1;
         childTasks.Clear();
     }
 
