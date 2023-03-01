@@ -1,59 +1,80 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BehaviorTreeManager:MonoBehaviour
 {
     public static BehaviorTreeManager instance;
-    public BehaviorTreeTaskRoot tree;
+    public Dictionary<int,BehaviorTreeTaskRoot> TreeDic = new Dictionary<int, BehaviorTreeTaskRoot>();
+    private int index = 0;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void Init()
+    public int GetTreeIndex()
     {
+        int curIndex = index;
+        index = index + 1;
+        return curIndex;
     }
 
     public void RunTree(BehaviorTreeTaskRoot enter)
     {
-        tree = enter;
+        enter.id = GetTreeIndex();
+        if (TreeDic.ContainsKey(enter.id))
+        {
+            TreeDic[enter.id] = enter;
+        }
+        else
+        {
+            TreeDic.Add(enter.id,enter);
+        }
     }
     //--重置树下所有Action
     public void ResetTreeActions()
     {
-        BehaviorTreeTaskRoot treeRoot = GetCurTreeRoot();
-        treeRoot.ResetAllActionsState();
+        foreach (BehaviorTreeTaskRoot taskRoot in TreeDic.Values)
+        {
+            taskRoot.ResetAllActionsState();
+        }
     }
 
-    public BehaviorTreeTaskRoot GetCurTreeRoot()
+    public BehaviorTreeTaskRoot GetTreeRoot(int id)
     {
-        return tree;
-    }
+        if (TreeDic.ContainsKey(id))
+        {
+            return TreeDic[id];
+        }
 
+        return null;
+    }
+    
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            BehaviorTreeTaskRoot root = BuildTree();
+            RunTree(root);
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            BehaviorTreeTaskRoot treeRoot = BehaviorTreeManager.instance.GetCurTreeRoot();
+            BehaviorTreeTaskRoot treeRoot = GetTreeRoot(0);
             object b = treeRoot.GetGlobalParam("OnPause");
             bool isB = (bool) b;
             treeRoot.SetGlobalParam("OnPause",!isB);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            BehaviorTreeTaskRoot root = BuildTree();
-            BehaviorTreeManager.instance.RunTree(root);
-        }
-
-       UpdateTask();
+        UpdateTask();
     }
 
     public void UpdateTask()
     {
-        if (tree != null)
+        if (TreeDic!=null && TreeDic.Count > 0)
         {
-            TaskStatus status = tree.OnUpdate();
+            foreach (var treeRoot in TreeDic.Values)
+            {
+                treeRoot.OnUpdate();
+            }
         }
     }
 

@@ -13,6 +13,7 @@ using UnityEngine;
 /// </summary>
 public class BehaviorTreeTaskRoot
 {
+    public int id;
     public string name = "根起始点";
     public int layer = 0;
     public string desc = "行为树入口";
@@ -96,8 +97,7 @@ public class BehaviorTreeTaskRoot
 
     public void PushTask(BehaviorTreeTaskBase task)
     {
-        // todo
-//        task.parent = this;
+        // task.parent = this;
         task.root = this;
         task.layer = layer + 1;
         startTask = task;
@@ -148,8 +148,7 @@ public class BehaviorTreeTaskRoot
 
     public TaskStatus OnUpdate()
     {
-        BehaviorTreeTaskRoot taskRoot = BehaviorTreeManager.instance.GetCurTreeRoot();
-        object b = taskRoot.GetGlobalParam("OnPause");
+        object b = GetGlobalParam("OnPause");
         bool isB = (bool) b;
         if (isB)
         {

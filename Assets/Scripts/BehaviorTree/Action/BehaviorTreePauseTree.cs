@@ -14,8 +14,7 @@ public class BehaviorTreePauseTree : BehaviorTreeActionBase
 
     public override TaskStatus OnUpdate()
     {
-        BehaviorTreeTaskRoot treeRoot = BehaviorTreeManager.instance.GetCurTreeRoot();
-        treeRoot.SetGlobalParam("OnPause",true);
+        root.SetGlobalParam("OnPause",true);
         curReturnStatus = TaskStatus.Success;
         return TaskStatus.Success;
     }
