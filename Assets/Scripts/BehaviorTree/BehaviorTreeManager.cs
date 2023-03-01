@@ -54,8 +54,7 @@ public class BehaviorTreeManager:MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            BehaviorTreeTaskRoot root = BuildTree();
-            RunTree(root);
+            RunTree(BuildTree());
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {

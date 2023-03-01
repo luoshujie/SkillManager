@@ -62,6 +62,7 @@ public class BehaviorTreeTaskBase
 
     public void ToString()
     {
+        string _rootId = "root id :" + this.root.id + "\n";
         string _name = "名称 : " + this.name + "\n";
         string _layer = "所处层次 ：" + this.layer + "\n";
         string _parent = "父节点 : " + this.parent.name + "\n";
@@ -86,7 +87,7 @@ public class BehaviorTreeTaskBase
         }
 
         string _curReturnStatus = "运行返回结果：" + _status + '\n';
-        Debug.Log(_name + _desc + _layer + _parent + _index + _curReturnStatus);
+        Debug.Log(_rootId + _name + _desc + _layer + _parent + _index + _curReturnStatus);
     }
 
     public virtual TaskStatus OnUpdate()
